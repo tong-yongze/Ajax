@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./lib/bootstrap.css" />
+  <script src="./lib/jquery.js"></script>
+</head>
+
+<body style="padding: 15px;">
+  <!-- 添加图书的Panel面板 -->
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">添加新图书</h3>
+    </div>
+    <div class="panel-body form-inline">
+
+      <div class="input-group">
+        <div class="input-group-addon">书名</div>
+        <input type="text" class="form-control" id="iptBookname" placeholder="请输入书名">
+      </div>
+
+      <div class="input-group">
+        <div class="input-group-addon">作者</div>
+        <input type="text" class="form-control" id="iptAuthor" placeholder="请输入作者">
+      </div>
+
+      <div class="input-group">
+        <div class="input-group-addon">出版社</div>
+        <input type="text" class="form-control" id="iptPublisher" placeholder="请输入出版社">
+      </div>
+
+      <button id="btnAdd" class="btn btn-primary">添加</button>
+
+    </div>
+  </div>
+
+
+  <!-- 图书的表格 -->
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>书名</th>
+        <th>作者</th>
+        <th>出版社</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody id="tb"></tbody>
+  </table>
+  <script>
+
+    $(function () {
+      // 1.发送ajax请求，获取所有图书列表数据
+      $.ajax({
+        url: 'http://www.liulongbin.top:3006/api/getbooks',
+        success(res) {
+          console.log(res);
+          // 2.渲染页面
+          // 2.1 判断状态码是否为200，如果不是直接终止
+          if (res.status !== 200) return
+          // 2.2 将数据取出  拼接成html\
+          let rows = []
+          res.data.forEach(item => {
+            rows.push(`
+            <tr>
+              <td>${item.id}</td>
+              <td>${item.bookname}</td>
+              <td>${item.author}</td>
+              <td>${item.publisher}</td>
+              <td><a hrer ="javascript:;" class="del">删除</a></td>
+            </tr>
+            `)
+          })
+          // 2.3 将html设置给tbody
+          $("#tb").append(rows)
+        }
+      })
+      // 删除功能
+      // 事件代理: 事件并不是直接绑定在目标元素身上 而是绑定给目标元素的父元素，将来只要触发事件的目标对象 在父元素内 都可以触发事件
+      // 实现原理：事件冒泡
+      $("#tb").on('click', '.del', function () {
+        // console.log('被点击了');
+        let id = $(this).data('id')
+        console.log(id);
+
+      })
+    })
+  </script>
+
+
+</body>
+
+</html>
