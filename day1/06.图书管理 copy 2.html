@@ -53,84 +53,63 @@
     <tbody id="tb"></tbody>
   </table>
   <script>
-
+    // 1.发送ajax请求，获取所有图书列表数据
+    // 2.渲染页面
+    // 2.1 判断状态码是否为200，如果不是直接终止
+    // 2.2 将数据取出  拼接成html
+    // 2.3 将html设置给tbody
     $(function () {
-
-
-      // var o = {
-      //   name: 'zs',
-      //   sayHi: function() {},
-      //   eat: () => {},
-      //   jump() {} // 只有在对象字面量中可以使用，效果等同于sayHi的定义
-      // }
-      const BASE_URl = ' http://www.liulongbin.top:3006/api'
-
       getBookList()
-
-      // 1.发送ajax请求，获取所有图书列表数据
       function getBookList() {
         $.ajax({
-          url: BASE_URl + '/getbooks',
-          success(res) {
-            console.log(res);
-            // 2.渲染页面
-            // 2.1 判断状态码是否为200，如果不是直接终止
+          type: 'GET',
+          url: 'http://www.liulongbin.top:3006/api/getbooks',
+          success: function (res) {
+            // console.log(res);
             if (res.status !== 200) return
-            // 2.2 将数据取出  拼接成html
             let rows = []
             res.data.forEach(item => {
               rows.push(`
-            <tr>
+          <tr>
               <td>${item.id}</td>
               <td>${item.bookname}</td>
               <td>${item.author}</td>
               <td>${item.publisher}</td>
               <td><a data-id="${item.id}" href ="javascript:;" class="del">删除</a></td>
-            </tr>
-            `)
+          </tr>
+          `)
             })
-            // 2.3 将html设置给tbody
-            $("#tb").empty().append(rows)
+            $('#tb').empty().append(rows)
           }
         })
       }
+
       // 删除功能
       // 事件代理: 事件并不是直接绑定在目标元素身上 而是绑定给目标元素的父元素，将来只要触发事件的目标对象 在父元素内 都可以触发事件
       // 实现原理：事件冒泡
       $("#tb").on('click', '.del', function () {
-        // console.log('被点击了');
         let id = $(this).data('id')
-        // console.log(id);
         $.ajax({
-          url: BASE_URl + '/delbook',
+          type: "GET",
+          url: 'http://www.liulongbin.top:3006/api/delbook',
           data: {
-            // 当属性名和属性值一样时可简写
-            // 注：属性名为id，属性值对应的变量也是id时可简写
             id
           },
-          success: res => {
-            // if (res.status == 200) {
-            //   alert('恭喜您，删除成功！')
-            //   // console.log(this);
-            //   $(this).parents().remove()
-            getBookList();
-            // }
-          }
+          success: res => getBookList()
+
         })
       })
-
       // 添加功能
-      $("#btnAdd").on('click', function () {
+      $('#btnAdd').on('click', function () {
         let bookname = $('#iptBookname').val().trim()
         let author = $('#iptAuthor').val().trim()
         let publisher = $('#iptPublisher').val().trim()
         if (bookname.length <= 0 || author.length <= 0 || publisher.length <= 0) {
           return alert("请输入完整信息")
         }
-
         $.ajax({
           type: 'POST',
-          url: BASE_URl + '/addbook',
+          url: 'http://www.liulongbin.top:3006/api/addbook',
           data: {
             bookname,
             author,
@@ -138,17 +117,16 @@
           },
           success(res) {
             if (res.status !== 201) return alert('添加失败')
-
-            // console.log(res);
             getBookList()
             $('#iptBookname').val('')
             $('#iptAuthor').val('')
             $('#iptPublisher').val('')
-
           }
         })
       })
+
     })
+
   </script>
 
 
