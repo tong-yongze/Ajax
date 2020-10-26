@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/template-web.js"></script>
+    <script src="./lib/jquery.js"></script>
+</head>
+
+<body>
+    <div id="container"></div>
+    <!-- <ul>
+        <li>zs</li>
+        <li>10</li>
+    </ul> -->
+    <script type="text/html" id="testTmp">
+        <!-- html的文本 -->
+    <ul>
+        <li>{{name}}</li>
+        <li>{{age}}</li>
+    </ul>
+    </script>
+
+    <script>
+        // 1.导入 template-web.js模块引擎的库
+        // 2. 定义好数据
+        // 3. 定义模板
+        // 4. 调用temlate()函数
+        // 5. 渲染到页面
+        let data = {
+            name: 'zs',
+            age: 10
+        }
+        // 参数1  模板的id
+        // 参数2  数据
+        // console.log(template('testTmp', data));
+        $('#container').html(template('testTmp', data))
+    </script>
+</body>
+
+</html>

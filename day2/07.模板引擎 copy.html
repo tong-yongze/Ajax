@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/template-web.js"></script>
+</head>
+
+<body>
+    <div id="main"></div>
+
+    <script type="text/html" id="textTmp">
+        <ul>
+            <li>{{name}}</li>
+            <li>{{age}}</li>
+            {{if sex === '男'}}
+            <li>{{sex}}</li>
+
+            {{else if sex ==='人妖'}}
+            <li>{{sex}}</li>
+            {{/if}}
+        </ul>    
+    </script>
+    <script>
+        // 1.导入 template-web.js模块引擎的库
+        // 2. 定义好数据
+        // 3. 定义模板
+        // 4. 调用temlate()函数
+        // 5. 渲染到页面
+        let data = {
+            name: 'zs',
+            age: '12',
+            sex: '女'
+        }
+        // 参数1  模板的id
+        // 参数2  数据
+        $('#main').html(template('textTmp', data))
+    </script>
+</body>
+
+</html>
