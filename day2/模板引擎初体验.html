@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="lib/template-web.js"></script>
+  <script src="lib/jquery.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <!-- <ul>
+      <li>zs</li>
+      <li>18</li>
+    </ul> -->
+  </div>
+
+  <script id="testTmp" type="text/html">
+    <ul>
+      <li>{{name}}</li>
+      <li>{{@hobby}}  真好玩啊啊啊</li>
+      <li>{{age}}</li>
+      {{if sex === '女'}}
+        <li>{{sex}}</li>
+
+      {{else if sex === '阴阳人'}}
+        <li><h1>{{sex}}</h1></li>
+      {{/if}}
+      
+      <li>
+        我们的爱好是：
+        <ol>
+          {{each hobby}}
+          <li>索引：{{$index}} =====  兴趣：{{$value}}</li>
+          {{/each}}
+        </ol>
+      </li>
+      <li>当前北京时间是：{{date | formatDate}}</li>
+    </ul>
+  </script>
+
+  <script>
+    template.defaults.imports.formatDate = function(data) {
+      let year = data.getFullYear()
+      let month = data.getMonth() + 1
+      let day = data.getDate()
+      let hours = data.getHours()
+      let minutes = data.getMinutes()
+      let seconds = data.getSeconds()
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+    }
+    // 1. 导入template-web.js文件
+    // 2. 定义数据
+    // 3. 定义模板
+    // 4. 调用template()函数
+    // 5. 渲染到页面
+    let data = {
+      name: 'zs',
+      age: 18,
+      sex: '阴阳人',
+      hobby: ['写代码', '每天写代码', '每晚写代码', '写代码真好玩'],
+      date: new Date()
+    }
+
+    // 参数1： 模板的id
+    // 参数2： 数据
+    // console.log(template('testTmp', data))
+    $('#container').html(template('testTmp', data))
+  </script>
+</body>
+
+</html>

@@ -9,15 +9,16 @@
   <link rel="stylesheet" href="./assets/news.css" />
   <script src="./lib/jquery.js"></script>
   <script src="./lib/template-web.js"></script>
-  <script src="./js/news.js"></script>
+  <script src="./js/news copy.js"></script>
 </head>
 
 <body>
 
-  <div id="news-list"></div>
+  <div id="news-list">
 
-  <!-- 定义模板 -->
-  <script type="text/html" id="tpl-news">
+  </div>
+
+  <script id="news-tmp" type="text/html">
       {{each data}}
       <div class="news-item">
         <img class="thumb" src="{{'http://www.liulongbin.top:3006' + $value.img}}" alt="" />
@@ -31,7 +32,7 @@
           <div class="footer">
             <div>
               <span>{{$value.source}}</span>&nbsp;&nbsp;
-              <span>{{$value.time | dateFormat}}</span>
+              <span>{{$value.time | formatDate}}</span>
             </div>
             <span>评论数：{{$value.cmtcount}}</span>
           </div>
