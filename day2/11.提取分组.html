@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var str = '<div>我是{{name}}</div>'
+        var pattern = /{{([a-zA-Z]+)}}/
+        // 小括号 ：提高优先级，分组
+        var result = pattern.exec(str)
+        console.log(result);
+    </script>
+</body>
+
+</html>
