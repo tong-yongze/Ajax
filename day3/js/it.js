@@ -24,7 +24,12 @@ function it(options) {
     xhr.setRequestHeader('Conteng-type', 'applecation/x-www-form-urlencoded')
     xhr.send(qs)
   }
-
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var result = JSON.parse(xhr.responseText)
+      options.success(result)
+    }
+  }
 
 
 }

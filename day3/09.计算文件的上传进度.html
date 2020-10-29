@@ -44,15 +44,16 @@
 
             // 监听文件上传的进度
             xhr.upload.onprogress = function (e) {
+                // 是否可以开始计算长度
                 if (e.lengthComputable) {
                     // 计算出上传的进度
-                    var procentComplete = Math.ceil((e.loaded / e.total) * 100)
-                    console.log(procentComplete);
+                    var percentComplete = Math.ceil((e.loaded / e.total) * 100)
+                    console.log(percentComplete);
                     // 动态设置进度条
-                    $('#percent').attr('style', 'width:' + procentComplete + '%;').html(procentComplete + '%')
+                    $('#percent').attr('style', 'width:' + percentComplete + '%;').html(percentComplete + '%')
                 }
             }
-
+            // 表示上传成功
             xhr.upload.onload = function () {
                 $('#percent').removeClass().addClass('progress-bar progress-bar-success')
             }

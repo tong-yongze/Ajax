@@ -21,7 +21,7 @@
         // 2.为按钮绑定单击事件 处理函数
         btnUpload.addEventListener('click', function () {
             // 3. 获取到用户选择的文件列表
-            var files = document.querySelector('#file1').files
+            var files = document.querySelector('#file1').files// files  用户选择的文件
             if (files.length <= 0) {
                 return alert('请选择要上传的文件')   // 如果长度小于0  就返回 不执行下面的代码
             }
